@@ -158,5 +158,14 @@ namespace Operation.WPF.Properties {
                 return ResourceManager.GetString("VariableCount", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Оптимальное решение.
+        /// </summary>
+        public static string WindowTitle {
+            get {
+                return ResourceManager.GetString("WindowTitle", resourceCulture);
+            }
+        }
     }
 }

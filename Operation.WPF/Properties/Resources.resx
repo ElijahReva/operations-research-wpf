@@ -150,4 +150,7 @@
   <data name="VariableCount" xml:space="preserve">
     <value>Кол-во переменных</value>
   </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Оптимальное решение</value>
+  </data>
 </root>

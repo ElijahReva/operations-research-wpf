@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Threading;
 using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Ioc;     
 using MvvmDialogs;
 
 namespace Operation.WPF.ViewModel
@@ -37,7 +40,7 @@ namespace Operation.WPF.ViewModel
             ////    // Code runs "for real"
             ////}
 
-            _dialogBuilder = SimpleIoc.Default.GetInstance<IDialogService>();
+            _dialogBuilder = SimpleIoc.Default.GetInstance<IDialogService>(); 
 
         }
 
@@ -189,6 +192,29 @@ namespace Operation.WPF.ViewModel
         {
             get { return _functionCoefs; }
             set { _functionCoefs = value; RaisePropertyChanged(); }
+        }
+
+
+
+        private RelayCommand<string> _changeLocaleCommand;
+
+
+        public RelayCommand<string> ChangeLocaleCommand => _changeLocaleCommand
+                                            ?? (_changeLocaleCommand = new RelayCommand<string>(ExecuteChangeLocaleCommand));
+
+        private void ExecuteChangeLocaleCommand(string locale)
+        {
+            switch (locale)
+            {
+                case "en-US":                                            
+                    break;
+                case "ru-RU":                                             
+                    break;
+                case "ua-UA":                                            
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

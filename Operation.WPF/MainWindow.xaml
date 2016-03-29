@@ -9,8 +9,10 @@
         xmlns:c="clr-namespace:Operation.WPF.Converters"
         md:DialogServiceViews.IsRegistered="True"
         mc:Ignorable="d"
+        ResxExtension.DefaultResxName="Operation.WPF.MainWindow"
+        Language="{UICulture}" Title="{Resx Window.Title}"
         DataContext="{Binding Main, Source={StaticResource Locator}}"
-        Title="Find optimum" Height="725" Width="900" ResizeMode="NoResize">
+        Height="725" Width="900" ResizeMode="NoResize">
     <Window.Resources>
         <Style TargetType="Label" x:Key="RightCenter">
             <Setter Property="HorizontalContentAlignment" Value="Right"></Setter>
@@ -36,6 +38,16 @@
 
     </Window.Resources>
     <StackPanel Orientation="Vertical">
+        <Menu>
+            <MenuItem Header="_File">
+                <MenuItem Header="E_xit" Click="Exit" />
+            </MenuItem>
+            <MenuItem Header="_Languages">
+                <MenuItem Header="_English" Command="{Binding ChangeLocaleCommand}" CommandParameter="en-US" />
+                <MenuItem Header="_Russian" Command="{Binding ChangeLocaleCommand}" CommandParameter="ru-RU"/>
+                <MenuItem Header="_Ukrainian" Command="{Binding ChangeLocaleCommand}" CommandParameter="ua-UA"/>
+            </MenuItem>
+        </Menu>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
@@ -119,19 +131,6 @@
                 Content="{x:Static res:Resources.FuncDefenition}"
                 Style="{StaticResource RightCenter}"/>
 
-            <!--COE Text=""F-->
-            <!--<TextBox Validation.ErrorTemplate="{StaticResource validationTemplate}"
-                     Style="{StaticResource textBoxInError}"
-                     Grid.Row="1" Grid.Column="1" Margin="2">
-                            <TextBox.Text>
-                    <Binding Path="Age" Source="{StaticResource ods}"
-             UpdateSourceTrigger="PropertyChanged" >
-                        <Binding.ValidationRules>
-                            <c:FuncCoefValidator />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>Text = "{Binding FunctionCoefs, Converter={c:CoefConvertor},  Mode=OneWayToSource}"-->
             <TextBox
                 Grid.Row="1"
                 Grid.Column="5"
