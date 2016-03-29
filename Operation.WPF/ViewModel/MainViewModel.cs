@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;     
 using MvvmDialogs;
+using Operation.WPF.LangManager;
 
 namespace Operation.WPF.ViewModel
 {
@@ -206,11 +207,14 @@ namespace Operation.WPF.ViewModel
         {
             switch (locale)
             {
-                case "en-US":                                            
+                case "en-US": 
+                    LocalizationManager.Instance.CurrentCulture = new CultureInfo("en-US");                                           
                     break;
-                case "ru-RU":                                             
+                case "ru-RU":
+                    LocalizationManager.Instance.CurrentCulture = new CultureInfo("ru-RU");
                     break;
-                case "ua-UA":                                            
+                case "ua-UA":
+                    LocalizationManager.Instance.CurrentCulture = new CultureInfo("uk-UA");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

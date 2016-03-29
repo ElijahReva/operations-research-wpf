@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
-using System.Windows;
-using Infralution.Localization.Wpf;
+using System.Windows;  
 
 namespace Operation.WPF
 {
