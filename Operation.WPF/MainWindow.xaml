@@ -1,0 +1,452 @@
+﻿<Window x:Name="mainWindow"  x:Class="Operation.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:res="clr-namespace:Operation.WPF.Properties"
+        xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+        xmlns:c="clr-namespace:Operation.WPF.Converters"
+        md:DialogServiceViews.IsRegistered="True"
+        mc:Ignorable="d"
+        DataContext="{Binding Main, Source={StaticResource Locator}}"
+        Title="Find optimum" Height="725" Width="900" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style TargetType="Label" x:Key="RightCenter">
+            <Setter Property="HorizontalContentAlignment" Value="Right"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonMargin">
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="Height" Value="25"></Setter>
+        </Style>
+        <Style TargetType="xctk:IntegerUpDown" x:Key="NumericInput">
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="Height" Value="25"></Setter>
+            <Setter Property="Value" Value="3"></Setter>
+            <Setter Property="ShowButtonSpinner" Value="False"></Setter>
+            <Setter Property="Minimum" Value="1"></Setter>
+            <Setter Property="Maximum" Value="10"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
+            <Setter Property="Watermark" Value="{x:Static res:Resources.LessThanTen}" />
+            <Setter Property="IsEnabled" Value="{Binding IsEditable}" />
+        </Style>
+        <Style x:Key="FuncTextBox" TargetType="TextBox">
+        </Style>
+
+    </Window.Resources>
+    <StackPanel Orientation="Vertical">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="120"/>
+            </Grid.ColumnDefinitions>
+
+            <!--intput-->
+            <Label
+                Grid.Column="0"
+                Grid.Row="0"
+                Content="{x:Static res:Resources.VariableCount}"
+                Style="{StaticResource RightCenter}" />
+            <Label
+                Grid.Column="0"
+                Grid.Row="1"
+                Content="{x:Static res:Resources.ConditionCount}"
+                Style="{StaticResource RightCenter}" />
+
+
+            <xctk:IntegerUpDown
+                Grid.Column="1" 
+                Grid.Row="0"
+                Value="{Binding VarCount}"
+                Style="{StaticResource NumericInput}" />
+            <xctk:IntegerUpDown
+                Grid.Column="1"
+                Grid.Row="1"
+                Value="{Binding ConditionCount}"
+                Style="{StaticResource NumericInput}" />
+            <!--buttons-->
+
+
+            <Button 
+                Grid.Column="2"
+                Grid.Row="0"
+                Command="{Binding CreateCommand}"
+                IsEnabled="{Binding IsEditable}"
+                Content="{x:Static res:Resources.Create}"
+                Style="{StaticResource ButtonMargin}" />
+            <Button 
+                Grid.Column="2"
+                Grid.Row="1"
+                Command="{Binding ClearCommand}"
+                IsEnabled="{Binding IsEditable, Converter={c:InverseBoolConverter}}"
+                Content="{x:Static res:Resources.Clear}"
+                Style="{StaticResource ButtonMargin}" />
+
+            <Button
+                Grid.Column="3"
+                Grid.Row="0"
+                IsEnabled="{Binding IsEditable, Converter={c:InverseBoolConverter}}"
+                Content="{x:Static res:Resources.Save}"
+                Style="{StaticResource ButtonMargin}" />
+            <Button
+                Grid.Column="3"
+                Grid.Row="1"
+                Content="{x:Static res:Resources.Load}"
+                Style="{StaticResource ButtonMargin}" />
+
+
+            <!--function-->
+            <Label  Grid.Row="0"
+                    Grid.Column="4"
+                    Grid.ColumnSpan="3"
+                    Content="{x:Static res:Resources.Function}"
+                    Style="{StaticResource RightCenter}"
+                    HorizontalContentAlignment="Center" />
+
+            <Label
+                Grid.Column="4"
+                Grid.Row="1"
+                Content="{x:Static res:Resources.FuncDefenition}"
+                Style="{StaticResource RightCenter}"/>
+
+            <!--COE Text=""F-->
+            <!--<TextBox Validation.ErrorTemplate="{StaticResource validationTemplate}"
+                     Style="{StaticResource textBoxInError}"
+                     Grid.Row="1" Grid.Column="1" Margin="2">
+                            <TextBox.Text>
+                    <Binding Path="Age" Source="{StaticResource ods}"
+             UpdateSourceTrigger="PropertyChanged" >
+                        <Binding.ValidationRules>
+                            <c:FuncCoefValidator />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>Text = "{Binding FunctionCoefs, Converter={c:CoefConvertor},  Mode=OneWayToSource}"-->
+            <TextBox
+                Grid.Row="1"
+                Grid.Column="5"
+                IsEnabled = "{Binding IsEditable, Converter={c:InverseBoolConverter}}">
+                <TextBox.Resources>
+                    <c:BindingProxy x:Key="Proxy" Data="{Binding}"/>
+                </TextBox.Resources>
+                <TextBox.Style>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Style.Triggers>
+                            <Trigger Property="Validation.HasError" Value="True">
+                                <Setter Property="Background" Value="Pink"/>
+                                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+                <TextBox.Text>
+                    <Binding Path="FunctionCoefs" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.Converter>
+                            <c:CoefConvertor />
+                        </Binding.Converter>
+                        <Binding.ValidationRules>
+                            <c:FuncCoefValidator>
+                                <c:FuncCoefValidator.Variables>
+                                    <c:VariablesWrapper VariableCount="{Binding Data.VarCount, Source={StaticResource Proxy}}"/>
+                                </c:FuncCoefValidator.Variables>
+                            </c:FuncCoefValidator>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+
+            </TextBox>
+
+            <ComboBox
+                Grid.Row="1"
+                Grid.Column="6" 
+                SelectedIndex="0"
+                VerticalContentAlignment="Center"
+                ItemsSource="{Binding Limits}"
+                SelectedValue="{Binding Path=SelectedLim}"/>
+
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="600"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="560"></RowDefinition>
+                <RowDefinition Height="45"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Style="{StaticResource ButtonMargin}" Grid.Column="1" Grid.Row="1" Content="Найти оптимальное решение"/>
+
+
+            <!-- DATA GRID-->
+            <DataGrid  Margin="5,10,5,10" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" SelectionMode="Single"  CanUserAddRows="True" CanUserDeleteRows="True" IsReadOnly="False" AutoGenerateColumns="False" SelectionUnit="Cell" />
+
+
+            <RichTextBox Margin="5,10,5,10" Grid.Column="1" Grid.Row="0" />
+        </Grid>
+    </StackPanel>
+</Window>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
