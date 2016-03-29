@@ -7,10 +7,13 @@
         xmlns:res="clr-namespace:Operation.WPF.Properties"
         xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
         xmlns:c="clr-namespace:Operation.WPF.Converters"
-        xmlns:l="clr-namespace:Operation.WPF.LangManager"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        lex:LocalizeDictionary.DesignCulture="en"
+        lex:ResxLocalizationProvider.DefaultAssembly="AssemblyTestResourceLib"
+        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
         md:DialogServiceViews.IsRegistered="True"
         mc:Ignorable="d"
-        Title="{l:String Title}"
+        Title="{lex:Loc Title}"
         DataContext="{Binding Main, Source={StaticResource Locator}}"
         Height="725" Width="900" ResizeMode="NoResize">
     <Window.Resources>
@@ -41,7 +44,7 @@
             <MenuItem Header="_File">
                 <MenuItem Header="E_xit" Click="Exit" />
             </MenuItem>
-            <MenuItem Header="{l:String Language}">
+            <MenuItem Header="ss">
                 <MenuItem Header="_English" Command="{Binding ChangeLocaleCommand}" CommandParameter="en-US" />
                 <MenuItem Header="_Russian" Command="{Binding ChangeLocaleCommand}" CommandParameter="ru-RU"/>
                 <MenuItem Header="_Ukrainian" Command="{Binding ChangeLocaleCommand}" CommandParameter="ua-UA"/>
