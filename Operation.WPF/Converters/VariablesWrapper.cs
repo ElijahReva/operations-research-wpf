@@ -4,14 +4,17 @@ namespace Operation.WPF.Converters
 {
     public class VariablesWrapper : DependencyObject
     {
-        public static readonly DependencyProperty VariableCountProperty =
-            DependencyProperty.Register("VariableCount", typeof(int),
+        public static readonly DependencyProperty CountProperty =
+            DependencyProperty.Register("Count", typeof(int),
                 typeof(VariablesWrapper), new FrameworkPropertyMetadata(int.MaxValue));
 
-        public int VariableCount
+        public int Count
         {
-            get { return (int)GetValue(VariableCountProperty); }
-            set { SetValue(VariableCountProperty, value); }
+            get { return (int)GetValue(CountProperty); }
+            set
+            {
+                SetValue(CountProperty, value);
+            }
         }
 
 

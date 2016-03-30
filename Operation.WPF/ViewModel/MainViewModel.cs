@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Threading;
 using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -105,31 +103,31 @@ namespace Operation.WPF.ViewModel
         }
 
         /// <summary>
-        /// The <see cref="VarCount" /> property's name.
+        /// The <see cref="VariableCount" /> property's name.
         /// </summary>
         public const string VarCountPropertyName = "VarCount";
 
-        private int _varCount;
+        private int _variableCount;
 
         /// <summary>
         /// Sets and gets the VarCount property.
         /// Changes to that property's value raise the PropertyChanged event. 
         /// </summary>
-        public int VarCount
+        public int VariableCount
         {
             get
             {
-                return _varCount;
+                return _variableCount;
             }
 
             set
             {
-                if (_varCount == value)
+                if (_variableCount == value)
                 {
                     return;
                 }
 
-                _varCount = value;
+                _variableCount = value;
                 RaisePropertyChanged(VarCountPropertyName);
             }
         }
@@ -138,7 +136,7 @@ namespace Operation.WPF.ViewModel
         private void ExecuteClearCommand()
         {
 
-            VarCount = 0;
+            VariableCount = 0;
             ConditionCount = 0;
             FunctionCoefs = new List<int>();
             IsEditable = true;
@@ -152,7 +150,7 @@ namespace Operation.WPF.ViewModel
 
         private bool CanExecuteCreateCommand()
         {
-            return _varCount > 0 && _varCount < 10 && _conditionCount > 0 && _conditionCount < 10;
+            return _variableCount > 0 && _variableCount < 10 && _conditionCount > 0 && _conditionCount < 10;
         }
 
         private RelayCommand _clearCommand;
@@ -166,7 +164,7 @@ namespace Operation.WPF.ViewModel
             IsEditable = false;
             _dialogBuilder.ShowMessageBox(
                           this,
-                          $"Переменных - {VarCount}, Условий  - {ConditionCount}",
+                          $"Переменных - {VariableCount}, Условий  - {ConditionCount}",
                           "",
                           MessageBoxButton.OK,
                           MessageBoxImage.Warning);

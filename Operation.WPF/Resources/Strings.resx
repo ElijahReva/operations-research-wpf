@@ -118,9 +118,39 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Title" xml:space="preserve">
-    <value>Operation research</value>
+    <value>Title</value>
   </data>
-  <data name="Language" xml:space="preserve">
-    <value>Language</value>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Function" xml:space="preserve">
+    <value>Function</value>
+  </data>
+  <data name="LessThanTen" xml:space="preserve">
+    <value>&lt;10</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="VariableCount" xml:space="preserve">
+    <value>VariableCount</value>
+  </data>
+  <data name="Solve" xml:space="preserve">
+    <value>Solve</value>
+  </data>
+  <data name="Load" xml:space="preserve">
+    <value>Load</value>
+  </data>
+  <data name="Generate" xml:space="preserve">
+    <value>Generate</value>
+  </data>
+  <data name="FuncDefenition" xml:space="preserve">
+    <value>F(x) = </value>
+  </data>
+  <data name="ConditionCount" xml:space="preserve">
+    <value>ConditionCount</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clear</value>
   </data>
 </root>

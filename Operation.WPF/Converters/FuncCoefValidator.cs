@@ -28,7 +28,7 @@ namespace Operation.WPF.Converters
             {
                 return new ValidationResult(false, "Illegal characters or " + e.Message);
             }
-            if (age.Count == 0 || age.Count != Variables.VariableCount)
+            if (age.Count == 0 || age.Count != Variables.Count)
             {
                 return new ValidationResult(false, "You must enter  exact numbers int as variables!");
             }

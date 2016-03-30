@@ -4,16 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:res="clr-namespace:Operation.WPF.Properties"
         xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
         xmlns:c="clr-namespace:Operation.WPF.Converters"
-        xmlns:lex="http://wpflocalizeextension.codeplex.com"
-        lex:LocalizeDictionary.DesignCulture="en"
-        lex:ResxLocalizationProvider.DefaultAssembly="AssemblyTestResourceLib"
-        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
+        xmlns:l="http://wpflocalizeextension.codeplex.com"
+        l:LocalizeDictionary.DesignCulture="ru"
+        l:LocalizeDictionary.OutputMissingKeys="True"
+        l:ResxLocalizationProvider.DefaultAssembly="Operation.WPF"
+        l:ResxLocalizationProvider.DefaultDictionary="Strings"
         md:DialogServiceViews.IsRegistered="True"
         mc:Ignorable="d"
-        Title="{lex:Loc Title}"
+        Title="{l:Loc Title}"
         DataContext="{Binding Main, Source={StaticResource Locator}}"
         Height="725" Width="900" ResizeMode="NoResize">
     <Window.Resources>
@@ -21,7 +21,7 @@
             <Setter Property="HorizontalContentAlignment" Value="Right"></Setter>
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         </Style>
-        <Style TargetType="Button" x:Key="ButtonMargin">
+        <Style TargetType="Button" x:Key="FunctionalButton">
             <Setter Property="Margin" Value="5"></Setter>
             <Setter Property="Height" Value="25"></Setter>
         </Style>
@@ -33,23 +33,12 @@
             <Setter Property="Minimum" Value="1"></Setter>
             <Setter Property="Maximum" Value="10"></Setter>
             <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
-            <Setter Property="Watermark" Value="{x:Static res:Resources.LessThanTen}" />
             <Setter Property="IsEnabled" Value="{Binding IsEditable}" />
         </Style>
-        
+
 
     </Window.Resources>
     <StackPanel Orientation="Vertical">
-        <Menu>
-            <MenuItem Header="_File">
-                <MenuItem Header="E_xit" Click="Exit" />
-            </MenuItem>
-            <MenuItem Header="ss">
-                <MenuItem Header="_English" Command="{Binding ChangeLocaleCommand}" CommandParameter="en-US" />
-                <MenuItem Header="_Russian" Command="{Binding ChangeLocaleCommand}" CommandParameter="ru-RU"/>
-                <MenuItem Header="_Ukrainian" Command="{Binding ChangeLocaleCommand}" CommandParameter="ua-UA"/>
-            </MenuItem>
-        </Menu>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
@@ -69,68 +58,74 @@
             <Label
                 Grid.Column="0"
                 Grid.Row="0"
-                Content="{x:Static res:Resources.VariableCount}"
+                Content="{l:Loc VariableCount}"
                 Style="{StaticResource RightCenter}" />
             <Label
                 Grid.Column="0"
                 Grid.Row="1"
-                Content="{x:Static res:Resources.ConditionCount}"
+                Content="{l:Loc ConditionCount}"
                 Style="{StaticResource RightCenter}" />
 
 
             <xctk:IntegerUpDown
                 Grid.Column="1" 
                 Grid.Row="0"
-                Value="{Binding VarCount}"
+                Value="{Binding VariableCount}"
                 Style="{StaticResource NumericInput}" />
             <xctk:IntegerUpDown
                 Grid.Column="1"
                 Grid.Row="1"
                 Value="{Binding ConditionCount}"
                 Style="{StaticResource NumericInput}" />
+            <Button 
+                Grid.Column="2"
+                Grid.Row="0"
+                Content="{l:Loc Generate}"
+                Command="{Binding CreateCommand}"
+                IsEnabled="{Binding IsEditable}"
+                Style="{StaticResource FunctionalButton}" />
             <!--buttons-->
 
 
             <Button 
                 Grid.Column="2"
-                Grid.Row="0"
-                Command="{Binding CreateCommand}"
-                IsEnabled="{Binding IsEditable}"
-                Content="{x:Static res:Resources.Create}"
-                Style="{StaticResource ButtonMargin}" />
-            <Button 
-                Grid.Column="2"
-                Grid.Row="1"
+                Grid.Row="1"    
+                Content="{l:Loc Clear}"
                 Command="{Binding ClearCommand}"
                 IsEnabled="{Binding IsEditable, Converter={c:InverseBoolConverter}}"
-                Content="{x:Static res:Resources.Clear}"
-                Style="{StaticResource ButtonMargin}" />
+                Style="{StaticResource FunctionalButton}" />
 
             <Button
                 Grid.Column="3"
                 Grid.Row="0"
                 IsEnabled="{Binding IsEditable, Converter={c:InverseBoolConverter}}"
-                Content="{x:Static res:Resources.Save}"
-                Style="{StaticResource ButtonMargin}" />
+                Content="{l:Loc Save}"
+                Style="{StaticResource FunctionalButton}" />
             <Button
                 Grid.Column="3"
                 Grid.Row="1"
-                Content="{x:Static res:Resources.Load}"
-                Style="{StaticResource ButtonMargin}" />
+                Content="{l:Loc Load}"
+                Style="{StaticResource FunctionalButton}" />
 
 
             <!--function-->
             <Label  Grid.Row="0"
                     Grid.Column="4"
-                    Grid.ColumnSpan="3"
-                    Content="{x:Static res:Resources.Function}"
+                    Grid.ColumnSpan="2"
+                    Content="{l:Loc Function}"
                     Style="{StaticResource RightCenter}"
                     HorizontalContentAlignment="Center" />
+            <ComboBox
+                Grid.Row="0"
+                Grid.Column="6"
+                ItemsSource="{Binding Source={x:Static l:LocalizeDictionary.Instance}, Path=MergedAvailableCultures}"
+                          SelectedItem="{Binding Source={x:Static l:LocalizeDictionary.Instance}, Path=Culture}" 
+                          DisplayMemberPath="NativeName" />
 
             <Label
                 Grid.Column="4"
                 Grid.Row="1"
-                Content="{x:Static res:Resources.FuncDefenition}"
+                Content="{l:Loc FuncDefenition}"
                 Style="{StaticResource RightCenter}"/>
 
             <TextBox
@@ -158,7 +153,7 @@
                         <Binding.ValidationRules>
                             <c:FuncCoefValidator>
                                 <c:FuncCoefValidator.Variables>
-                                    <c:VariablesWrapper VariableCount="{Binding Data.VarCount, Source={StaticResource Proxy}}"/>
+                                    <c:VariablesWrapper Count="{Binding Data.VariableCount, Source={StaticResource Proxy}}"/>
                                 </c:FuncCoefValidator.Variables>
                             </c:FuncCoefValidator>
                         </Binding.ValidationRules>
@@ -185,7 +180,7 @@
                 <RowDefinition Height="560"></RowDefinition>
                 <RowDefinition Height="45"></RowDefinition>
             </Grid.RowDefinitions>
-            <Button Style="{StaticResource ButtonMargin}" Grid.Column="1" Grid.Row="1" Content="Найти оптимальное решение"/>
+            <Button Style="{StaticResource FunctionalButton}" Grid.Column="1" Grid.Row="1" Content="Найти оптимальное решение"/>
 
 
             <!-- DATA GRID-->

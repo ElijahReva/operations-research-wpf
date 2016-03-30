@@ -118,9 +118,39 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Title" xml:space="preserve">
-    <value>Дослідження операції</value>
+    <value>Исследование операций</value>
   </data>
-  <data name="Language" xml:space="preserve">
-    <value>Мова</value>
+  <data name="Function" xml:space="preserve">
+    <value>Функция для нормализации</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Load" xml:space="preserve">
+    <value>Загрузить</value>
+  </data>
+  <data name="FuncDefenition" xml:space="preserve">
+    <value>F(x) = </value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Отчистить</value>
+  </data>
+  <data name="ConditionCount" xml:space="preserve">
+    <value>Кол-во условий</value>
+  </data>
+  <data name="Generate" xml:space="preserve">
+    <value>Генерировать</value>
+  </data>
+  <data name="Solve" xml:space="preserve">
+    <value>Найти оптимальное решение</value>
+  </data>
+  <data name="VariableCount" xml:space="preserve">
+    <value>Кол-во переменных</value>
+  </data>
+  <data name="LessThanTen" xml:space="preserve">
+    <value>&lt;10</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Генерировать</value>
   </data>
 </root>
