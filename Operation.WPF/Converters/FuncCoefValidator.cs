@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Controls;
+using Operation.WPF.Helpers;
 
 namespace Operation.WPF.Converters
 {

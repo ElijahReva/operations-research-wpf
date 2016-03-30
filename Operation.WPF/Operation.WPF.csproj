@@ -111,13 +111,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Converters\BindingProxy.cs" />
-    <Compile Include="Converters\CoefConvertor.cs" />
+    <Compile Include="Helpers\BindingProxy.cs" />
     <Compile Include="Converters\ConvertorBase.cs" />
     <Compile Include="Converters\FuncCoefValidator.cs" />
     <Compile Include="Converters\OppositeConverter.cs" />
-    <Compile Include="Converters\StringExtention.cs" />
-    <Compile Include="Converters\VariablesWrapper.cs" />
+    <Compile Include="Helpers\StringExtention.cs" />
+    <Compile Include="Helpers\VariablesWrapper.cs" />
     <Compile Include="Resources\Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

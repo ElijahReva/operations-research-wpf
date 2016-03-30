@@ -120,4 +120,10 @@
   <data name="Title" xml:space="preserve">
     <value>Дослідження операцій</value>
   </data>
+  <data name="Solve" xml:space="preserve">
+    <value>Знайти рішення</value>
+  </data>
+  <data name="ConditionCount" xml:space="preserve">
+    <value>Кількість</value>
+  </data>
 </root>

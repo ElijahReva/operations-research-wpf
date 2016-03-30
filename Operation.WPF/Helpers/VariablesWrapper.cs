@@ -1,6 +1,6 @@
 using System.Windows;
 
-namespace Operation.WPF.Converters
+namespace Operation.WPF.Helpers
 {
     public class VariablesWrapper : DependencyObject
     {

@@ -7,6 +7,7 @@
         xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
         xmlns:c="clr-namespace:Operation.WPF.Converters"
         xmlns:l="http://wpflocalizeextension.codeplex.com"
+        xmlns:helpers="clr-namespace:Operation.WPF.Helpers"
         l:LocalizeDictionary.DesignCulture="ru"
         l:LocalizeDictionary.OutputMissingKeys="True"
         l:ResxLocalizationProvider.DefaultAssembly="Operation.WPF"
@@ -25,6 +26,21 @@
             <Setter Property="Margin" Value="5"></Setter>
             <Setter Property="Height" Value="25"></Setter>
         </Style>
+        <Style TargetType="Button" x:Key="SolveButton" BasedOn="{StaticResource FunctionalButton}" >
+            <Setter Property="IsEnabled" Value="False" />
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding IsEditable, Converter={c:InverseBoolConverter}}" Value="True" />
+                        <Condition Binding="{Binding ElementName=FuncTextBox, Path=(Validation.HasError)}" Value="False" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="IsEnabled" Value="True" />
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+
+
+
         <Style TargetType="xctk:IntegerUpDown" x:Key="NumericInput">
             <Setter Property="Margin" Value="5"></Setter>
             <Setter Property="Height" Value="25"></Setter>
@@ -70,7 +86,7 @@
             <xctk:IntegerUpDown
                 Grid.Column="1" 
                 Grid.Row="0"
-                Value="{Binding VariableCount}"
+                Value="{Binding VarCount}"
                 Style="{StaticResource NumericInput}" />
             <xctk:IntegerUpDown
                 Grid.Column="1"
@@ -131,29 +147,26 @@
             <TextBox
                 Grid.Row="1"
                 Grid.Column="5"
+                Name="FuncTextBox"
                 IsEnabled = "{Binding IsEditable, Converter={c:InverseBoolConverter}}">
                 <TextBox.Resources>
-                    <c:BindingProxy x:Key="Proxy" Data="{Binding}"/>
+                    <helpers:BindingProxy x:Key="Proxy" Data="{Binding}"/>
                 </TextBox.Resources>
                 <TextBox.Style>
                     <Style TargetType="{x:Type TextBox}">
                         <Style.Triggers>
                             <Trigger Property="Validation.HasError" Value="True">
                                 <Setter Property="Background" Value="Pink"/>
-                                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
                 </TextBox.Style>
                 <TextBox.Text>
                     <Binding Path="FunctionCoefs" UpdateSourceTrigger="PropertyChanged">
-                        <Binding.Converter>
-                            <c:CoefConvertor />
-                        </Binding.Converter>
                         <Binding.ValidationRules>
                             <c:FuncCoefValidator>
                                 <c:FuncCoefValidator.Variables>
-                                    <c:VariablesWrapper Count="{Binding Data.VariableCount, Source={StaticResource Proxy}}"/>
+                                    <helpers:VariablesWrapper Count="{Binding Data.VarCount, Source={StaticResource Proxy}}"/>
                                 </c:FuncCoefValidator.Variables>
                             </c:FuncCoefValidator>
                         </Binding.ValidationRules>
@@ -180,17 +193,281 @@
                 <RowDefinition Height="560"></RowDefinition>
                 <RowDefinition Height="45"></RowDefinition>
             </Grid.RowDefinitions>
-            <Button Style="{StaticResource FunctionalButton}" Grid.Column="1" Grid.Row="1" Content="Найти оптимальное решение"/>
-
 
             <!-- DATA GRID-->
             <DataGrid  Margin="5,10,5,10" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" SelectionMode="Single"  CanUserAddRows="True" CanUserDeleteRows="True" IsReadOnly="False" AutoGenerateColumns="False" SelectionUnit="Cell" />
 
 
             <RichTextBox Margin="5,10,5,10" Grid.Column="1" Grid.Row="0" />
+
+            <Button Grid.Column="1"
+                    Grid.Row="1"
+                    Content="{l:Loc Solve}"
+                    Command="{Binding SolveCommand}"
+                    Style="{StaticResource SolveButton}">
+
+            </Button>
+
+
         </Grid>
     </StackPanel>
 </Window>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

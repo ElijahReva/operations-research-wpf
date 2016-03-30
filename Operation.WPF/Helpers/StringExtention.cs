@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Operation.WPF.Converters
+namespace Operation.WPF.Helpers
 {
     public static class StringExtention
     {
