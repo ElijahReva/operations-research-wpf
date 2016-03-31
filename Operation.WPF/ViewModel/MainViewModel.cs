@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -73,54 +75,25 @@ namespace Operation.WPF.ViewModel
             }
         }
 
-        /// <summary>
-        /// The <see cref="ConditionCount" /> property's name.
-        /// </summary>
-        public const string ConditionCountName = "ConditionCount";
 
         private int _conditionCount;
-
-        /// <summary>
-        /// Sets and gets the ConditionCount property.
-        /// Changes to that property's value raise the PropertyChanged event. 
-        /// </summary>
         public int ConditionCount
         {
-            get
-            {
-                return _conditionCount;
-            }
+            get { return _conditionCount; }
 
             set
             {
-                if (_conditionCount == value)
-                {
-                    return;
-                }
-
+                if (_conditionCount == value) { return; }
                 _conditionCount = value;
-                RaisePropertyChanged(ConditionCountName);
+                RaisePropertyChanged();
             }
         }
 
-        /// <summary>
-        /// The <see cref="VarCount" /> property's name.
-        /// </summary>
-        public const string VarCountPropertyName = "VarCount";
 
         private int _varCount;
-
-        /// <summary>
-        /// Sets and gets the VarCount property.
-        /// Changes to that property's value raise the PropertyChanged event. 
-        /// </summary>
         public int VarCount
         {
-            get
-            {
-                return _varCount;
-            }
-
+            get { return _varCount; }
             set
             {
                 if (_varCount == value)
@@ -129,29 +102,24 @@ namespace Operation.WPF.ViewModel
                 }
 
                 _varCount = value;
-                RaisePropertyChanged(VarCountPropertyName);
+                RaisePropertyChanged();
             }
         }
 
 
-        
 
 
-        private RelayCommand _createCommand;
-        public RelayCommand CreateCommand => _createCommand
-                                             ?? (_createCommand = new RelayCommand(ExecuteCreateCommand, CanExecuteCreateCommand));
 
-        private void ExecuteCreateCommand()
+        private RelayCommand _generateCommand;
+        public RelayCommand GenerateCommand => _generateCommand
+                                             ?? (_generateCommand = new RelayCommand(ExecuteGenerateCommand));
+
+        private void ExecuteGenerateCommand()
         {
             IsEditable = false;
         }
 
-        private bool CanExecuteCreateCommand()
-        {
-            return _varCount > 0 && _varCount < 10 && _conditionCount > 0 && _conditionCount < 10;
-        }
-
-        private RelayCommand _clearCommand; 
+        private RelayCommand _clearCommand;
         public RelayCommand ClearCommand => _clearCommand
                                             ?? (_clearCommand = new RelayCommand(ExecuteClearCommand));
 
@@ -164,7 +132,7 @@ namespace Operation.WPF.ViewModel
             IsEditable = true;
         }
 
-        private RelayCommand _solveCommand; 
+        private RelayCommand _solveCommand;
         public RelayCommand SolveCommand => _solveCommand
                                             ?? (_solveCommand = new RelayCommand(ExecuteSolveCommand, CanExecuteSolveCommand));
 
@@ -176,16 +144,12 @@ namespace Operation.WPF.ViewModel
         private void ExecuteSolveCommand()
         {
             var intList = FunctionCoefs.ToIntList();
-            string result = String.Empty;
-            foreach (var i in intList)
-            {
-                result += i.ToString() + " ";
-            }
+            string result = intList.Aggregate(String.Empty, (current, i) => current + (i + " "));
             _dialogBuilder.ShowMessageBox(this,
                 $"{result}");
         }
 
-        
+
 
         private IEnumerable<string> _limits = new List<string> { "Min", "Max" };
         public IEnumerable<string> Limits
@@ -194,7 +158,7 @@ namespace Operation.WPF.ViewModel
             set { _limits = value; RaisePropertyChanged(); }
         }
 
-        private string _selectedLim;
+        private string _selectedLim = String.Empty;
         public string SelectedLim
         {
             get { return _selectedLim; }
@@ -207,6 +171,22 @@ namespace Operation.WPF.ViewModel
         {
             get { return _functionCoefs; }
             set { _functionCoefs = value; RaisePropertyChanged(); }
+        }
+
+
+
+        private ObservableCollection<string> _columnHeaders = new ObservableCollection<string> {"x1","x2","x3"};
+        public ObservableCollection<string> ColumnHeaders
+        {
+            get { return _columnHeaders; }
+            set { _columnHeaders = value; RaisePropertyChanged(); }
+        }
+
+        private List<string> _rowHeaders = new List<string>();
+        public List<string> RowHeaders
+        {
+            get { return _rowHeaders; }
+            set { _rowHeaders = value; RaisePropertyChanged(); }
         }
 
     }

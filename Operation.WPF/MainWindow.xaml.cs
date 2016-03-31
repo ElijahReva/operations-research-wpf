@@ -20,5 +20,7 @@ namespace Operation.WPF
         {
                 Environment.Exit(0);
         }
+
+        
     }
 }
