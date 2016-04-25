@@ -117,7 +117,10 @@ namespace Operation.WPF.ViewModel
         private void ExecuteGenerateCommand()
         {
             IsEditable = false;
+            Generate();
         }
+
+       
 
         private RelayCommand _clearCommand;
         public RelayCommand ClearCommand => _clearCommand
@@ -175,18 +178,51 @@ namespace Operation.WPF.ViewModel
 
 
 
-        private ObservableCollection<string> _columnHeaders = new ObservableCollection<string> {"x1","x2","x3"};
-        public ObservableCollection<string> ColumnHeaders
+        private string[] _columnHeaders;
+        public string[] ColumnHeaders
         {
             get { return _columnHeaders; }
             set { _columnHeaders = value; RaisePropertyChanged(); }
         }
 
-        private List<string> _rowHeaders = new List<string>();
-        public List<string> RowHeaders
+        private string[] _rowHeaders;
+        public string[] RowHeaders
         {
             get { return _rowHeaders; }
             set { _rowHeaders = value; RaisePropertyChanged(); }
+        }
+
+        private int[,] _mainCoefs;
+        public int[,] MainCoefs
+        {
+            get { return _mainCoefs; }
+            set { _mainCoefs = value; RaisePropertyChanged(); }
+        }
+
+        void Generate()
+        {
+            var r = new Random();
+            var columns = VarCount + 1;
+            var colHead = new string[columns];
+            var result = new int[columns, ConditionCount];  
+            var rowHeaders = new string[ConditionCount];
+            for (int i = 0; i < columns; i++)
+            {
+
+                colHead[i] = "x" + i;
+                for (int j = 0; j < ConditionCount; j++)
+                {
+                    result[i, j] = r.Next(0, 10);
+                }
+            }
+
+            for (int i = 0; i < ConditionCount; i++)
+            {
+                rowHeaders[i] = "Condition " + i;
+            }
+            MainCoefs = result;
+            ColumnHeaders = colHead;
+            RowHeaders = rowHeaders;
         }
 
     }

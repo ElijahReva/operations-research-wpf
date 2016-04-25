@@ -1,0 +1,23 @@
+﻿<Window x:Class="Operation.WPF.PointsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ignore="http://www.galasoft.ch/ignore"
+        xmlns:local ="clr-namespace:Operation.WPF.ViewModel"
+        mc:Ignorable="d ignore"
+        DataContext="{Binding Points, Source={StaticResource Locator}}">
+
+    <Grid>
+        <ItemsControl ItemsSource="{Binding Points}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type local:Point}">
+                    <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <Ellipse Width="10" Height="10" Fill="Black" Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}"/>
+                    </Canvas>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</Window>
+

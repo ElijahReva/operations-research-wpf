@@ -8,6 +8,7 @@
         xmlns:c="clr-namespace:Operation.WPF.Converters"
         xmlns:l="http://wpflocalizeextension.codeplex.com"
         xmlns:helpers="clr-namespace:Operation.WPF.Helpers"
+        xmlns:dataGrid2D="http://gu.se/DataGrid2D"
         l:LocalizeDictionary.DesignCulture="ru"
         l:LocalizeDictionary.OutputMissingKeys="True"
         l:ResxLocalizationProvider.DefaultAssembly="Operation.WPF"
@@ -200,8 +201,8 @@
                 <RowDefinition Height="500"/>
                 <RowDefinition Height="50"></RowDefinition>
             </Grid.RowDefinitions>
-            
-            <ItemsControl 
+
+            <!--<ItemsControl 
                 Grid.Column="1"
                 Grid.Row="0"
                 ItemsSource="{Binding ColumnHeaders}">
@@ -215,11 +216,17 @@
                         <TextBlock Width="25" Text="{Binding}" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            
+            </ItemsControl>-->
 
+            <!--dataGrid2D:ItemsSource.Array2DTransposed="{Binding MainCoefs}"-->
             <!-- DATA GRID-->
             <DataGrid
+                
+                
+                dataGrid2D:ItemsSource.ColumnHeadersSource="{Binding ColumnHeaders}"
+                dataGrid2D:ItemsSource.RowHeadersSource="{Binding RowHeaders}"
+                IsEnabled="{Binding IsEditable, Converter={c:InverseBoolConverter}}"
+                
                 Margin="5,10,5,10"
                 Grid.Column="1"
                 Grid.Row="1"
@@ -227,11 +234,10 @@
                 CanUserAddRows="True"
                 CanUserDeleteRows="True"
                 IsReadOnly="False"
-                AutoGenerateColumns="False"
                 SelectionUnit="Cell" />
 
-            
-            
+
+
 
             <RichTextBox
                 Margin="5,10,5,10"
