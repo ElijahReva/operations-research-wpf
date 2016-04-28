@@ -46,7 +46,6 @@
         <Style TargetType="xctk:IntegerUpDown" x:Key="NumericInput">
             <Setter Property="Margin" Value="5"></Setter>
             <Setter Property="Height" Value="25"></Setter>
-            <Setter Property="Value" Value="3"></Setter>
             <Setter Property="ShowButtonSpinner" Value="False"></Setter>
             <Setter Property="Minimum" Value="1"></Setter>
             <Setter Property="Maximum" Value="10"></Setter>
@@ -92,12 +91,12 @@
             <xctk:IntegerUpDown
                 Grid.Column="1" 
                 Grid.Row="0"
-                Value="{Binding VarCount}"
+                Value="{Binding Path = VarCount, Mode=  OneWayToSource}"
                 Style="{StaticResource NumericInput}" />
             <xctk:IntegerUpDown
                 Grid.Column="1"
                 Grid.Row="1"
-                Value="{Binding ConditionCount}"
+                Value="{Binding Path =  ConditionCount, Mode=OneWayToSource}"
                 Style="{StaticResource NumericInput}" />
             <Button 
                 Grid.Column="2"

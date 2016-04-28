@@ -30,7 +30,7 @@ namespace Operation.WPF.ViewModel
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel()
+        public MainViewModel(IDialogService dialogService)
         {
             ////if (IsInDesignMode)
             ////{
@@ -41,7 +41,7 @@ namespace Operation.WPF.ViewModel
             ////    // Code runs "for real"
             ////}
 
-            _dialogBuilder = SimpleIoc.Default.GetInstance<IDialogService>();
+            _dialogBuilder = dialogService;
 
         }
 
@@ -117,7 +117,7 @@ namespace Operation.WPF.ViewModel
         private void ExecuteGenerateCommand()
         {
             IsEditable = false;
-            Generate();
+            this.Generate();
         }
 
        

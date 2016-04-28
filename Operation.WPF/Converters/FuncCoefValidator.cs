@@ -15,7 +15,7 @@ namespace Operation.WPF.Converters
             var age = new List<int>();
             try
             {
-                var str = (string)value;
+                var str = value as string;
                 if (str.Length > 0)
                 {
                     age = str.ToIntList();
