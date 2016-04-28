@@ -6,6 +6,7 @@ using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using MvvmDialogs;
 using Operation.WPF.Helpers;
 
@@ -223,6 +224,7 @@ namespace Operation.WPF.ViewModel
             MainCoefs = result;
             ColumnHeaders = colHead;
             RowHeaders = rowHeaders;
+
         }
 
     }

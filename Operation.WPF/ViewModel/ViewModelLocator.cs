@@ -13,6 +13,8 @@
 */
 
 
+using Autofac;
+using Autofac.Extras.CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using MvvmDialogs; 
@@ -30,21 +32,20 @@ namespace Operation.WPF.ViewModel
         /// </summary>
         public ViewModelLocator()
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-            SimpleIoc.Default.Register<IDialogService>(() => new DialogService());
+            var container = new ContainerBuilder();
+            
+            ServiceLocator.SetLocatorProvider(() => new AutofacServiceLocator(container.Build()));
+            container.RegisterType<DialogService>().As<IDialogService>();
             ////if (ViewModelBase.IsInDesignModeStatic)
             ////{
-            ////    // Create design time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DesignDataService>();
+            ////    // Create design time view services and models          
             ////}
             ////else
             ////{
-            ////    // Create run time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DataService>();
-            ////}
-
-            SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<PointViewModel>();
+            ////    // Create run time view services and models                
+            ////}                              
+            container.RegisterType<MainViewModel>();
+            container.RegisterType<PointViewModel>();
         }
 
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
