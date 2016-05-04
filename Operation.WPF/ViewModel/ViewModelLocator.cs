@@ -17,7 +17,7 @@ using Autofac;
 using Autofac.Extras.CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
-using MvvmDialogs; 
+using MvvmDialogs;
 
 namespace Operation.WPF.ViewModel
 {
@@ -33,7 +33,7 @@ namespace Operation.WPF.ViewModel
         public ViewModelLocator()
         {
             var container = new ContainerBuilder();
-            
+
             ServiceLocator.SetLocatorProvider(() => new AutofacServiceLocator(container.Build()));
             container.RegisterType<DialogService>().As<IDialogService>();
             ////if (ViewModelBase.IsInDesignModeStatic)
@@ -46,15 +46,16 @@ namespace Operation.WPF.ViewModel
             ////}                              
             container.RegisterType<MainViewModel>();
             container.RegisterType<PointViewModel>();
+            container.RegisterType<MultibindingViewModel>();
         }
 
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
         public PointViewModel Points => ServiceLocator.Current.GetInstance<PointViewModel>();
+        public MultibindingViewModel Multi => ServiceLocator.Current.GetInstance<MultibindingViewModel>();
 
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
         }
     }
-                  
 }
