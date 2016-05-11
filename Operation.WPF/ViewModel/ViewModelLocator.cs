@@ -24,26 +24,23 @@ namespace Operation.WPF.ViewModel
     /// </summary>
     public class ViewModelLocator
     {
+        private readonly ViewModelFactory _factory;
+
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
-        public ViewModelLocator()
+        public ViewModelLocator(ViewModelFactory factory)
         {
-            var container = new ContainerBuilder(); 
-            ////if (ViewModelBase.IsInDesignModeStatic)
-            ////{
-            ////    // Create design time view services and models          
-            ////}
-            ////else
-            ////{
-            ////    // Create run time view services and models                
-            ////}                              
-            container.RegisterType<MainViewModel>();
-            container.RegisterType<PointViewModel>();
+            _factory = factory;
         }
 
-        public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
-        public PointViewModel Points => ServiceLocator.Current.GetInstance<PointViewModel>();
+        public ViewModelLocator()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public MainViewModel Main => _factory.ResolveViewModel<MainViewModel>();
+        public PointViewModel Points => _factory.ResolveViewModel<PointViewModel>();
 
         public static void Cleanup()
         {
