@@ -14,10 +14,7 @@
 
 
 using Autofac;
-using Autofac.Extras.CommonServiceLocator;
-using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
-using MvvmDialogs; 
 
 namespace Operation.WPF.ViewModel
 {
@@ -32,10 +29,7 @@ namespace Operation.WPF.ViewModel
         /// </summary>
         public ViewModelLocator()
         {
-            var container = new ContainerBuilder();
-            
-            ServiceLocator.SetLocatorProvider(() => new AutofacServiceLocator(container.Build()));
-            container.RegisterType<DialogService>().As<IDialogService>();
+            var container = new ContainerBuilder(); 
             ////if (ViewModelBase.IsInDesignModeStatic)
             ////{
             ////    // Create design time view services and models          

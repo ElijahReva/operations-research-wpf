@@ -1,13 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;     
 using System.Linq;
 using System.Windows;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.CommandWpf;
-using GalaSoft.MvvmLight.Ioc;
-using GalaSoft.MvvmLight.Messaging;
-using MvvmDialogs;
+using GalaSoft.MvvmLight.CommandWpf;    
 using Operation.WPF.Helpers;
 
 namespace Operation.WPF.ViewModel
@@ -26,12 +22,10 @@ namespace Operation.WPF.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        private readonly IDialogService _dialogBuilder;
-
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel(IDialogService dialogService)
+        public MainViewModel()
         {
             ////if (IsInDesignMode)
             ////{
@@ -41,8 +35,7 @@ namespace Operation.WPF.ViewModel
             ////{
             ////    // Code runs "for real"
             ////}
-
-            _dialogBuilder = dialogService;
+                                            
 
         }
 
@@ -149,8 +142,7 @@ namespace Operation.WPF.ViewModel
         {
             var intList = FunctionCoefs.ToIntList();
             string result = intList.Aggregate(String.Empty, (current, i) => current + (i + " "));
-            _dialogBuilder.ShowMessageBox(this,
-                $"{result}");
+            Xceed.Wpf.Toolkit.MessageBox.Show(Application.Current.MainWindow, result);
         }
 
 

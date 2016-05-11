@@ -13,7 +13,6 @@
         l:LocalizeDictionary.OutputMissingKeys="True"
         l:ResxLocalizationProvider.DefaultAssembly="Operation.WPF"
         l:ResxLocalizationProvider.DefaultDictionary="Strings"
-        md:DialogServiceViews.IsRegistered="True"
         mc:Ignorable="d"
         Title="{l:Loc Title}"
         DataContext="{Binding Main, Source={StaticResource Locator}}"
