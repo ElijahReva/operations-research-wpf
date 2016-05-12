@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 
-namespace Operation.WPF.ViewModel
+namespace Operation.WPF.ViewModels
 {
-    public class ViewModelFactory
+    public class ViewModelFactory: IViewModelFactory
     {
         private readonly IEnumerable<ViewModelBase> _viewModels;
 

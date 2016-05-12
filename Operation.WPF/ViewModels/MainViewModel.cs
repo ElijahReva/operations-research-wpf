@@ -1,12 +1,14 @@
 using System;
-using System.Collections.Generic;     
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.CommandWpf;    
+using GalaSoft.MvvmLight.CommandWpf;
 using Operation.WPF.Helpers;
+using Operation.WPF.Services;
 
-namespace Operation.WPF.ViewModel
+namespace Operation.WPF.ViewModels
 {
     /// <summary>
     /// This class contains properties that the main View can data bind to.
@@ -22,11 +24,15 @@ namespace Operation.WPF.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
+        private readonly INavigationService navigationService;
+
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel()
+        public MainViewModel(INavigationService navigationService)
         {
+            this.navigationService = navigationService;
+
             ////if (IsInDesignMode)
             ////{
             ////    // Code runs in Blend --> create design time data.
@@ -35,8 +41,6 @@ namespace Operation.WPF.ViewModel
             ////{
             ////    // Code runs "for real"
             ////}
-                                            
-
         }
 
         /// <summary>
@@ -127,11 +131,12 @@ namespace Operation.WPF.ViewModel
             ConditionCount = 0;
             FunctionCoefs = String.Empty;
             IsEditable = true;
+            Log.Clear();
         }
 
-        private RelayCommand _solveCommand;
-        public RelayCommand SolveCommand => _solveCommand
-                                            ?? (_solveCommand = new RelayCommand(ExecuteSolveCommand, CanExecuteSolveCommand));
+        private RelayCommand solveCommand;
+        public RelayCommand SolveCommand => solveCommand
+                                            ?? (solveCommand = new RelayCommand(ExecuteSolveCommand, CanExecuteSolveCommand));
 
         private bool CanExecuteSolveCommand()
         {
@@ -219,5 +224,17 @@ namespace Operation.WPF.ViewModel
 
         }
 
+        public Func<string, string, bool> OkCancelDialog  => (message, caption) => Xceed.Wpf.Toolkit.MessageBox.Show(message, caption, MessageBoxButton.OKCancel) == MessageBoxResult.OK;
+
+        public ObservableCollection<string> Log { get; } = new ObservableCollection<string>();
+
+        
+        public RelayCommand Ping => new RelayCommand(() =>
+        { Log.Add(OkCancelDialog("Test caption", "Why you must choose?") ? "Ok button pressed" : "Action canceled"); });
+
+        public RelayCommand Nav => new RelayCommand(() =>
+        {
+         this.navigationService.Navigate<AboutViewModel>();    
+        });
     }
 }

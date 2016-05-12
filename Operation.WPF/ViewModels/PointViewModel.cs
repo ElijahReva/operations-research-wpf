@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 
-namespace Operation.WPF.ViewModel
+namespace Operation.WPF.ViewModels
 {
     /// <summary>
     /// This class contains properties that a View can data bind to.

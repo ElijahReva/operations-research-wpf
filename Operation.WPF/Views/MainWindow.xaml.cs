@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Threading;
-using System.Windows;  
+using System.Windows;
 
-namespace Operation.WPF
+namespace Operation.WPF.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Operation.WPF
+namespace Operation.WPF.Views
 {
     /// <summary>
     /// Description for MvvmView1.

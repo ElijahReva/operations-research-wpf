@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Operation.WPF"
         mc:Ignorable="d"
-        Title="Shell" Height="300" Width="300">
-    <ContentControl Content="{Binding Source={StaticResource Locator}, Path=Main}"></ContentControl>
+        Title="Shell" Height="300" Width="300"
+        DataContext="{Binding Source={StaticResource Locator}, Path=Shell}">
+    <ContentControl Content="{Binding CurrentViewModel}" />
 </Window>
+
