@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Autofac;
 using GalaSoft.MvvmLight;
@@ -6,13 +7,13 @@ using Operation.WPF.Services;
 namespace Operation.WPF.ViewModels
 {
     public class ShellViewModel:
-        ViewModelBase, INavigationService
+        ViewModelBase, INavigationService, IViewModelFactory
     {
-        private readonly IComponentContext context;
+        private readonly Lazy<IEnumerable<ViewModelBase>> viewModels;
 
-        public ShellViewModel(IComponentContext context)
+        public ShellViewModel(Lazy<IEnumerable<ViewModelBase>> viewModels)
         {
-            this.context = context;
+            this.viewModels = viewModels;
         }
 
         private ViewModelBase currentViewModel;
@@ -24,14 +25,25 @@ namespace Operation.WPF.ViewModels
 
         public void Navigate<T>() where T : ViewModelBase
         {
-            var viewModels = context.Resolve<IEnumerable<ViewModelBase>>();
-            foreach (var baseViewModel in viewModels)
+            foreach (var baseViewModel in viewModels.Value)
             {
                 if (baseViewModel is T)
                 {
                     CurrentViewModel = baseViewModel as T;
                 }
             }
+        }
+
+        public T ResolveViewModel<T>() where T : ViewModelBase
+        {
+            foreach (var baseViewModel in viewModels.Value)
+            {
+                if (baseViewModel is T)
+                {
+                    return baseViewModel as T;
+                }
+            }
+            throw new TypeLoadException();
         }
     }
 }

@@ -23,6 +23,6 @@
             </i:Interaction.Triggers>
         </ListView>
         <Button Command="{Binding Ping}" Content="{lex:Loc Calculate}"/>
-        <Button/>
+        <Button Command="{Binding Nav}" Content="{lex:Loc About}"/>
     </StackPanel>
 </UserControl>

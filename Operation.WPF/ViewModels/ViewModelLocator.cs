@@ -14,6 +14,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using Autofac;
 using GalaSoft.MvvmLight;
 using Operation.WPF.Services;
@@ -26,7 +27,7 @@ namespace Operation.WPF.ViewModels
     /// </summary>
     public class ViewModelLocator
     {
-        private readonly ViewModelFactory factory;
+        private readonly IViewModelFactory factory;
 
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
@@ -44,29 +45,29 @@ namespace Operation.WPF.ViewModels
             ////}                               
             builder.RegisterInstance(this).As<ViewModelLocator>().SingleInstance();
 
-            builder.RegisterType<ShellViewModel>().As<INavigationService>();
-            builder.RegisterType<ShellViewModel>();
+           
             builder.RegisterType<MainViewModel>().As<ViewModelBase>();
             builder.RegisterType<PointViewModel>().As<ViewModelBase>();
             builder.RegisterType<AboutViewModel>().As<ViewModelBase>();
-            builder.RegisterType<ViewModelFactory>();
+
+            builder.Register(c => new ShellViewModel(c.Resolve<Lazy<IEnumerable<ViewModelBase>>>()))
+                .As<INavigationService>()
+                .As<IViewModelFactory>()
+                .AsSelf()
+                .SingleInstance();
             var container = builder.Build();
 
             
             using (var scope = container.BeginLifetimeScope())
             {
-                factory = scope.Resolve<ViewModelFactory>();
-                shell = scope.Resolve<ShellViewModel>();
-                shell.CurrentViewModel = factory.ResolveViewModel<MainViewModel>();
+                factory = scope.Resolve<IViewModelFactory>();
+                Shell = scope.Resolve<ShellViewModel>();
+                Shell.CurrentViewModel = factory.ResolveViewModel<MainViewModel>();
             }
             
         }
 
-        private ShellViewModel shell;
-        public ShellViewModel Shell
-        {
-            get { return shell; }
-        }
+        public ShellViewModel Shell { get; }
 
         public MainViewModel Main => factory.ResolveViewModel<MainViewModel>();
         public PointViewModel Points => factory.ResolveViewModel<PointViewModel>();

@@ -234,7 +234,7 @@ namespace Operation.WPF.ViewModels
 
         public RelayCommand Nav => new RelayCommand(() =>
         {
-         this.navigationService.Navigate<AboutViewModel>();    
+            this.navigationService.Navigate<AboutViewModel>();    
         });
     }
 }
