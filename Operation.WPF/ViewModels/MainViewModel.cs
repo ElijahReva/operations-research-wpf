@@ -236,5 +236,9 @@ namespace Operation.WPF.ViewModels
         {
             this.navigationService.Navigate<AboutViewModel>();    
         });
+        public RelayCommand GoChooseView => new RelayCommand(() =>
+        {
+            this.navigationService.Navigate<ChooseViewModel>();    
+        });
     }
 }

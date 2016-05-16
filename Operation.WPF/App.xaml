@@ -21,6 +21,10 @@
         <DataTemplate DataType="{x:Type vm:AboutViewModel}">
                 <views:AboutView />
             </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:ChooseViewModel}">
+                <views:ChooseView />
+            </DataTemplate>
         </ResourceDictionary>
   </Application.Resources>
 </Application>

@@ -49,6 +49,7 @@ namespace Operation.WPF.ViewModels
             builder.RegisterType<MainViewModel>().As<ViewModelBase>();
             builder.RegisterType<PointViewModel>().As<ViewModelBase>();
             builder.RegisterType<AboutViewModel>().As<ViewModelBase>();
+            builder.RegisterType<ChooseViewModel>().As<ViewModelBase>();
 
             builder.Register(c => new ShellViewModel(c.Resolve<Lazy<IEnumerable<ViewModelBase>>>()))
                 .As<INavigationService>()
@@ -72,6 +73,7 @@ namespace Operation.WPF.ViewModels
         public MainViewModel Main => factory.ResolveViewModel<MainViewModel>();
         public PointViewModel Points => factory.ResolveViewModel<PointViewModel>();
         public AboutViewModel About => factory.ResolveViewModel<AboutViewModel>();
+        public ChooseViewModel Choose => factory.ResolveViewModel<ChooseViewModel>();
 
         public static void Cleanup()
         {
