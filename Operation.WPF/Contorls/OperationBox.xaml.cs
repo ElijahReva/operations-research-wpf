@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Operation.WPF.Contorls
@@ -12,7 +14,5 @@ namespace Operation.WPF.Contorls
         {
             InitializeComponent();
         }
-
-        
     }
 }

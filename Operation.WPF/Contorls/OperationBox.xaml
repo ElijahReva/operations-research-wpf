@@ -7,26 +7,55 @@
              mc:Ignorable="d" >
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" MinWidth="36"/>
-            <ColumnDefinition Width="12" />
+            <ColumnDefinition Width="*" MinWidth="48"/>
+            <ColumnDefinition Width="48" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="12" />
+            <RowDefinition Height="48" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.Resources>
-            <ImageBrush x:Key="DropdownImage" ImageSource="../Images/arrow_down_48px.png" Stretch="UniformToFill" />
+            <BitmapImage x:Key="DownImage"  UriSource="../Images/arrow_down_48px.png" />
+            <BitmapImage x:Key="UpImage"  UriSource="../Images/arrow_up_48px.png" />
         </Grid.Resources>
-        <ToggleButton Grid.Row="0" Grid.Column="1" Name="ToggleButton" Background="{StaticResource DropdownImage}" />
-        <TextBox Grid.Row="0" Grid.Column="0"  />
+        <ToggleButton 
+            Grid.Row="0"
+            Grid.Column="1"
+            Name="ToggleButton">
+            <Image Width="24" Height="24"  >
+                <Image.Style>
+                    <Style TargetType="{x:Type Image}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ToggleButton}, Path = IsChecked}" Value="False">
+                                <Setter Property="Source" Value="{StaticResource DownImage}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ToggleButton}, Path = IsChecked}" Value="True">
+                                <Setter Property="Source" Value="{StaticResource UpImage}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+        </ToggleButton>
+        <TextBox x:Name = "TextBox" Grid.Row="0" Grid.Column="0"  />
         <Popup Grid.Row="1" Grid.Column="0" 
                Grid.ColumnSpan="2"
                Margin="2" 
                IsOpen="{Binding IsChecked, ElementName = ToggleButton}"
-               Placement="Relative"
                HorizontalAlignment="Center"
-               VerticalAlignment="Center" Width="194" Height="200">
-            <TextBlock Background="LightBlue" Margin="4,0,0,4"/>
+               VerticalAlignment="Center" PopupAnimation="Slide" PlacementTarget="{Binding ElementName=TextBox}">
+            <ListView ItemsSource="{Binding ItemSource}" SelectedItem="{Binding SelectedItem}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="3" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Popup>
     </Grid>
 </UserControl>
