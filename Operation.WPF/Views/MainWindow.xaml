@@ -15,7 +15,7 @@
         l:ResxLocalizationProvider.DefaultDictionary="Strings"
         mc:Ignorable="d"
         Title="{l:Loc Title}"
-        DataContext="{Binding Main, Source={StaticResource Locator}}"
+        DataContext="{Binding maiinn, Source={StaticResource Locator}}"
         Height="725" Width="900" ResizeMode="NoResize">
     <Window.Resources>
         <Style TargetType="Label" x:Key="RightCenter">

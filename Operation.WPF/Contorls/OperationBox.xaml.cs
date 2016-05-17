@@ -14,5 +14,26 @@ namespace Operation.WPF.Contorls
         {
             InitializeComponent();
         }
+
+        public static DependencyProperty OperatorsListProperty;
+        public static DependencyProperty SelectedOperatorProperty;
+
+        static OperationBox()
+        {
+            OperatorsListProperty = DependencyProperty.Register("OperationsList", typeof(IEnumerable), typeof(OperationBox));
+            SelectedOperatorProperty = DependencyProperty.Register("SelectedOperator", typeof(object), typeof(OperationBox));
+        }
+
+        public IEnumerable OperatorsList
+        {
+            get { return (IEnumerable)GetValue(OperatorsListProperty); }
+            set { SetValue(OperatorsListProperty, value); }
+        }
+
+        public object SelectedOperator
+        {
+            get { return GetValue(SelectedOperatorProperty); }
+            set { SetValue(SelectedOperatorProperty, value); }
+        }
     }
 }
