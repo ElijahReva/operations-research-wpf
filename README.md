@@ -1,2 +1,5 @@
 # operations-research-wpf
-Simple WPF app using MVVMLight framework
+This project created only for test propouses
+
+Used frameworks: MVVMLight, Autofac
+Used features: WPF Navigation, UserControl
